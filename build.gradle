@@ -43,6 +43,14 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'SpringBlogApplication'
+    }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
+}
+
 tasks.named('test') {
     useJUnitPlatform()
 }
