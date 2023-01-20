@@ -31,8 +31,6 @@ dependencies {
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
 
 
-
-
     runtimeOnly 'org.postgresql:postgresql'
 
 
@@ -45,11 +43,12 @@ dependencies {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'SpringBlogApplication'
+        attributes(
+                'Main-Class': 'com.example.springblog.SpringBlogApplication'
+        )
     }
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
 }
+
 
 tasks.named('test') {
     useJUnitPlatform()
