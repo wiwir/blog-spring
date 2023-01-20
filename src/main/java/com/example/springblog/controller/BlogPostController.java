@@ -2,6 +2,7 @@ package com.example.springblog.controller;
 
 import com.example.springblog.domain.BlogPost;
 import com.example.springblog.repository.BlogPostRepository;
+import jakarta.persistence.PostUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/post")
+@RequestMapping("/post/v1")
 public class BlogPostController {
 
 
@@ -38,10 +39,39 @@ public class BlogPostController {
     }
 
 
-    @PostMapping
+    @PostMapping(value = "created_post")
     public ResponseEntity<BlogPost> createBlogPost(@RequestBody BlogPost blogPost) {
-        blogPostRepository.save(blogPost);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        BlogPost rsp = blogPostRepository.save(blogPost);
+        return new ResponseEntity<>(rsp, HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "updated_post")
+    public ResponseEntity<Boolean> updatedBlogPost(@RequestBody BlogPost blogPost) {
+        if (blogPostRepository.existsById(blogPost.getId())) {
+            BlogPost post;
+            post = blogPostRepository.findById(blogPost.getId()).get();
+
+            post.setText(blogPost.getText());
+            post.setUpdated(blogPost.getUpdated());
+            post.setTitle(blogPost.getTitle());
+            blogPostRepository.save(post);
+
+            return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(Boolean.FALSE, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "deteled_post/{id}")
+    public ResponseEntity<Boolean> deletedBlogPost(@PathVariable long id) {
+        if (blogPostRepository.existsById(id)) {
+            BlogPost post;
+            post = blogPostRepository.findById(id).get();
+            blogPostRepository.delete(post);
+            return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(Boolean.FALSE, HttpStatus.OK);
     }
 
 }
