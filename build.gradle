@@ -41,14 +41,16 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-jar {
-    manifest {
-        attributes(
-                'Main-Class': 'com.example.springblog.SpringBlogApplication'
-        )
-    }
+bootJar {
+    archiveClassifier.set('boot')
 }
 
+jar {
+    archiveClassifier.set('')
+}
+// Add these END
+
+// Add these END
 
 tasks.named('test') {
     useJUnitPlatform()
