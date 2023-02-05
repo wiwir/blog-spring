@@ -30,6 +30,8 @@ dependencies {
 
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
 
+    compileOnly 'javax.servlet:javax.servlet-api:3.0.1'
+
 
     runtimeOnly 'org.postgresql:postgresql'
 
