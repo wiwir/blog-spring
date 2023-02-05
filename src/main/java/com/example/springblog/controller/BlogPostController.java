@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/post/v1")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins= {"*"}, maxAge = 4800, allowCredentials = "false" )
 
 public class BlogPostController {
 
