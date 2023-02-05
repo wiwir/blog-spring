@@ -2,6 +2,8 @@ package com.example.springblog.controller;
 
 import com.example.springblog.domain.BlogPost;
 import com.example.springblog.repository.BlogPostRepository;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.servers.Server;
 import jakarta.persistence.PostUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +14,11 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@OpenAPIDefinition(
+        servers = {
+                @Server(url = "/", description = "Default Server URL")
+        }
+)
 @RequestMapping("/post/v1")
 
 public class BlogPostController {
