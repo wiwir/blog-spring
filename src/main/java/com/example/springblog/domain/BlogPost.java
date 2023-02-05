@@ -25,9 +25,13 @@ public class BlogPost {
     @Column(name = "update")
     private String updated;
 
+    @Column(name = "image")
+    private String image;
+
     public BlogPost() {
 
     }
+
     public BlogPost(long id, String title, String text, String created, String updated) {
         this.id = id;
         this.title = title;
